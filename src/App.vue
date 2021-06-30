@@ -1,32 +1,60 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+    <div class="leader-title">
+      <h1>{{ title }}</h1>
     </div>
-    <router-view/>
+    <div class="leader-card-container">
+      <LeaderCard
+        v-for="(leaderType, index) in leaderTypeData"
+        :key="index"
+        :leaderCardData="leaderType"
+      />
+    </div>
   </div>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+<script>
+import LeaderCard from './components/LeaderCard.vue'
+
+export default {
+  name: 'App',
+  components: {
+    LeaderCard,
+  },
+  data() {
+    return {
+      title: null,
+      leaderTypeData: null,
+    }
+  },
+  methods: {
+    async getContent() {
+      try {
+        const data = await this.$prismic.client.getSingle('leader-types')
+        this.title = data.data.title[0].text
+        this.leaderTypeData = data.data.types
+        console.log(data)
+      } catch (error) {
+        console.log(error)
+      }
+    },
+  },
+  created() {
+    this.getContent()
+  },
+}
+</script>
+
+<style>
+.leader-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+.leader-card-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  text-align: center;
 }
 </style>
