@@ -1,31 +1,54 @@
 <template>
-  <div v-if="leaderCardData !== null">
-    <p>
-      {{ leaderCardData.colour }}
-    </p>
-
-    <p>
-      {{ leaderCardData.name[0].text }}
-    </p>
-    <h3>{{ leaderCardData.description[0].text }}</h3>
-    <p>{{ leaderCardData.description[0].text }}</p>
-    <ul>
-      <li
-        v-for="(desc, index) in leaderCardData.description.slice(
-          2,
-          leaderCardData.description.length
-        )"
-        :key="index"
-      >
-        {{ desc.text }}
-      </li>
-    </ul>
-    <img
-      :alt="leaderCardData.exemplar_image.alt"
-      :src="leaderCardData.exemplar_image.url"
-      :height="leaderCardData.exemplar_image.dimensions.height"
-      :width="leaderCardData.exemplar_image.dimensions.width"
-    />
+  <div class="card" v-if="leaderCardData !== null">
+    <div
+      class="card__side card__side--front"
+      :style="{ background: leaderCardData.colour }"
+    >
+      <figure>
+        <img
+          :alt="leaderCardData.exemplar_image.alt"
+          :src="leaderCardData.exemplar_image.url"
+        />
+        <figcaption>{{ leaderCardData.name[0].text }}</figcaption>
+      </figure>
+      <div class="card__side--details">
+        <h3 class="card__side--details-header">
+          {{ leaderCardData.description[0].text }}
+        </h3>
+        <!--<p>{{ leaderCardData.description[1].text }}</p>-->
+        <p
+          class="card__side--details-best"
+          :style="{ background: leaderCardData.colour }"
+        >
+          {{ leaderCardData.description[2].text }}
+        </p>
+        <ul>
+          <li
+            class="leader-list-element"
+            v-for="(desc, index) in filteredLeaderCardData"
+            :key="index"
+          >
+            <i
+              class="fas fa-chart-pie"
+              :style="{ color: leaderCardData.colour }"
+            ></i>
+            <p>{{ desc.text }}</p>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="card__side card__side--back">
+      <p>
+        Are you
+        <small :style="{ color: leaderCardData.colour }">{{
+          leaderCardData.name[0].text
+        }}</small
+        ><small>?</small>
+      </p>
+      <a :style="{ background: leaderCardData.colour }">
+        Learn More
+      </a>
+    </div>
   </div>
 </template>
 
@@ -34,6 +57,15 @@ export default {
   name: 'HelloWorld',
   props: {
     leaderCardData: Object,
+  },
+  computed: {
+    filteredLeaderCardData() {
+      const slicedLeaderCardData = this.leaderCardData.description.slice(
+        3,
+        this.leaderCardData.description.length
+      )
+      return slicedLeaderCardData.filter((item) => item.text !== '')
+    },
   },
 }
 </script>
@@ -45,9 +77,10 @@ export default {
   cursor: pointer;
   position: relative;
   height: 50rem;
-  width: 30rem;
+  width: 25rem;
+  margin-bottom: 200px;
   &__side {
-    height: 50rem;
+    height: 45rem;
     position: absolute;
     top: 0;
     left: 0;
@@ -56,11 +89,14 @@ export default {
     transition: all 2s ease;
     box-shadow: 0 1.5rem 4rem rgba(#000, 0.15);
     &--front {
-      background-color: #fff;
       & figure {
-        height: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: start;
+        height: 40%;
         position: relative;
         clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+        margin-bottom: 30px;
         &::after {
           content: '';
           top: 0;
@@ -68,13 +104,8 @@ export default {
           background-color: rgba(0, 0, 0, 0.6);
           position: absolute;
           width: 100%;
-          height: 100%;
+          height: 30rem;
         }
-      }
-      & figure img {
-        object-fit: cover;
-        width: 100%;
-        height: 100%;
       }
       & figcaption {
         position: absolute;
@@ -82,10 +113,10 @@ export default {
         right: 2rem;
         color: white;
         z-index: 1000;
-        font-size: 2rem;
+        font-size: 1rem;
         text-transform: uppercase;
         font-weight: 800;
-        background-color: pink;
+        background-color: black;
         padding: 0.5rem 1rem;
         box-shadow: 1rem 1rem 1rem (rgba(0, 0, 0, 0.8));
         text-shadow: 0.3rem 0.3rem 1rem (rgba(0, 0, 0, 0.8));
@@ -97,7 +128,8 @@ export default {
       display: flex;
       justify-content: space-evenly;
       align-items: center;
-      height: 100%;
+      padding: 20px;
+      height: 43rem;
       width: 100%;
       flex-direction: column;
       color: #fff;
@@ -106,12 +138,14 @@ export default {
         font-weight: 800;
       }
       a {
-        background: pink;
-        width: 18rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 8rem;
         color: white;
-        padding: 1.5rem 3rem;
+        padding: 1.5rem 2rem;
         border-radius: 100px;
-        font-size: 1.5rem;
+        font-size: 1.2rem;
         text-transform: uppercase;
         font-weight: 800;
         transition: all 0.5s;
@@ -125,26 +159,46 @@ export default {
     &--details {
       background: linear-gradient(grey 5%, black 95%);
       height: 55%;
-      margin-top: -2.5rem;
+      &-header {
+        display: flex;
+        justify-content: start;
+        align-items: center;
+        color: white;
+        font-size: 1rem;
+        padding-top: 50px;
+        padding-left: 20px;
+      }
+      &-best {
+        color: white;
+        z-index: 1000;
+        font-size: 1rem;
+        text-transform: uppercase;
+        width: 40%;
+        margin-left: 20px;
+        font-weight: 800;
+        padding: 0.5rem 1rem;
+        box-shadow: 1rem 1rem 1rem (rgba(0, 0, 0, 0.8));
+        text-shadow: 0.3rem 0.3rem 1rem (rgba(0, 0, 0, 0.8));
+      }
       & ul {
-        list-style: none;
         display: flex;
         flex-direction: column;
         padding: 1.5rem;
-        padding-top: 4.5rem;
+        padding-top: 0.5rem;
       }
       & i {
-        color: pink;
-        margin-right: 5px;
-        margin-top: 2px;
+        height: 20px;
+        width: 15px;
+        margin-right: 15px;
       }
       & li {
-        color: #fff;
-        font-size: 1.5rem;
-        font-weight: 500;
         display: flex;
-        line-height: 2rem;
-        margin-bottom: 2.2rem;
+        justify-content: start;
+        align-items: center;
+        color: #fff;
+        font-size: 1rem;
+        font-weight: 500;
+        height: 30px;
       }
     }
   }
