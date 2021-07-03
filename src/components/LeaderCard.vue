@@ -78,7 +78,7 @@ export default {
   position: relative;
   height: 50rem;
   width: 25rem;
-  margin-bottom: 200px;
+  margin-bottom: 20px;
   &__side {
     height: 45rem;
     position: absolute;

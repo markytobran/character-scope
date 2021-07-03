@@ -54,14 +54,20 @@ export default {
 }
 
 .leader-card-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.leader-card-container {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   justify-items: center;
+}
+
+@media (max-width: 1300px) {
+  .leader-card-container {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 800px) {
+  .leader-card-container {
+    grid-template-columns: 1fr;
+  }
 }
 </style>
