@@ -2,6 +2,7 @@
   <div>
     <div class="leader-title">
       <h1>{{ title }}</h1>
+      <img src="../assets/character_scope.png" />
     </div>
     <div class="leader-cards-container">
       <div class="leader-card-container">
@@ -36,7 +37,7 @@ export default {
         this.title = data.data.title[0].text
         this.leaderTypeData = data.data.types
       } catch (error) {
-        this.$router.push('/not-found')
+        this.$router.push('/notfound')
       }
     },
   },
@@ -46,11 +47,22 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
 .leader-title {
   display: flex;
   justify-content: center;
   text-align: center;
+  padding-bottom: 40px;
+
+  & h1 {
+    text-transform: uppercase;
+    padding-top: 60px;
+    padding-right: 40px;
+  }
+  & img {
+    width: 600px;
+    height: 200px;
+  }
 }
 
 .leader-card-container {
@@ -60,6 +72,21 @@ export default {
 }
 
 @media (max-width: 1300px) {
+  .leader-title {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    & h1 {
+      padding-right: 0;
+    }
+
+    & img {
+      width: 480px;
+      height: 170px;
+    }
+  }
   .leader-card-container {
     grid-template-columns: 1fr 1fr;
   }
