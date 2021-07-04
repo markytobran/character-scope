@@ -15,7 +15,6 @@
         <h3 class="card__side--details-header">
           {{ leaderCardData.description[0].text }}
         </h3>
-        <!--<p>{{ leaderCardData.description[1].text }}</p>-->
         <p
           class="card__side--details-best"
           :style="{ background: leaderCardData.colour }"
@@ -111,19 +110,19 @@ export default {
         position: absolute;
         bottom: 4rem;
         right: 2rem;
-        color: white;
+        color: #fff;
         z-index: 1000;
         font-size: 1rem;
         text-transform: uppercase;
         font-weight: 800;
-        background-color: black;
+        background-color: #000000;
         padding: 0.5rem 1rem;
         box-shadow: 1rem 1rem 1rem (rgba(0, 0, 0, 0.8));
         text-shadow: 0.3rem 0.3rem 1rem (rgba(0, 0, 0, 0.8));
       }
     }
     &--back {
-      background: linear-gradient(grey 5%, black 95%);
+      background: linear-gradient(#aaaaaa 5%, #000000 95%);
       transform: rotateY(180deg);
       display: flex;
       justify-content: space-evenly;
@@ -142,7 +141,7 @@ export default {
         justify-content: center;
         align-items: center;
         width: 8rem;
-        color: white;
+        color: #fff;
         padding: 1.5rem 2rem;
         border-radius: 100px;
         font-size: 1.2rem;
@@ -152,24 +151,24 @@ export default {
         text-decoration: none;
         &:hover {
           transform: translateY(-5px);
-          box-shadow: 0.4rem 0.4rem 0.7rem (rgba(white, 0.6));
+          box-shadow: 0.4rem 0.4rem 0.7rem (rgba(#fff, 0.6));
         }
       }
     }
     &--details {
-      background: linear-gradient(grey 5%, black 95%);
+      background: linear-gradient(#aaaaaa 5%, #000000 95%);
       height: 55%;
       &-header {
         display: flex;
         justify-content: start;
         align-items: center;
-        color: white;
+        color: #fff;
         font-size: 1rem;
         padding-top: 50px;
         padding-left: 20px;
       }
       &-best {
-        color: white;
+        color: #fff;
         z-index: 1000;
         font-size: 1rem;
         text-transform: uppercase;

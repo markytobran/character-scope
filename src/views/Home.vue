@@ -56,12 +56,12 @@ export default {
 
   & h1 {
     text-transform: uppercase;
-    padding-top: 60px;
+    padding-top: 40px;
     padding-right: 40px;
   }
   & img {
-    width: 600px;
-    height: 200px;
+    width: 520px;
+    height: 160px;
   }
 }
 
@@ -95,6 +95,12 @@ export default {
 @media (max-width: 800px) {
   .leader-card-container {
     grid-template-columns: 1fr;
+  }
+  .leader-title {
+    & img {
+      width: 350px;
+      height: 120px;
+    }
   }
 }
 </style>
